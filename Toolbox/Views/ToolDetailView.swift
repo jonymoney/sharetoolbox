@@ -4,6 +4,7 @@ struct ToolDetailView: View {
     let tool: Tool
     @State private var argumentValues: [String: String] = [:]
     @State private var flagValues: [String: Bool] = [:]
+    @State private var envValues: [String: String] = [:]
     @State private var runState = ToolRunState()
 
     var body: some View {
@@ -67,6 +68,33 @@ struct ToolDetailView: View {
                         }
                     }
 
+                    // Environment
+                    if let envVars = tool.environment, !envVars.isEmpty {
+                        GroupBox("Environment") {
+                            VStack(alignment: .leading, spacing: 12) {
+                                ForEach(envVars) { envVar in
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(envVar.label)
+                                            .fontWeight(.medium)
+                                        HStack(spacing: 8) {
+                                            SecureField(envVar.name, text: envBinding(for: envVar))
+                                                .textFieldStyle(.roundedBorder)
+                                                .onSubmit {
+                                                    saveEnvVar(envVar)
+                                                }
+                                            if let val = envValues[envVar.name], !val.isEmpty {
+                                                Image(systemName: "checkmark.circle.fill")
+                                                    .foregroundStyle(.green)
+                                                    .help("Stored in Keychain")
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .padding(.vertical, 4)
+                        }
+                    }
+
                     // Run button
                     HStack {
                         Button(action: runTool) {
@@ -119,11 +147,15 @@ struct ToolDetailView: View {
     private func initializeDefaults() {
         argumentValues = [:]
         flagValues = [:]
+        envValues = [:]
         for arg in tool.arguments {
             argumentValues[arg.name] = arg.default ?? ""
         }
         for flag in tool.flags {
             flagValues[flag.name] = flag.default?.boolValue ?? false
+        }
+        for envVar in tool.environment ?? [] {
+            envValues[envVar.name] = KeychainHelper.read(tool: tool.name, key: envVar.name) ?? ""
         }
         runState.reset()
     }
@@ -142,7 +174,27 @@ struct ToolDetailView: View {
         )
     }
 
+    private func envBinding(for envVar: EnvironmentVar) -> Binding<String> {
+        Binding(
+            get: { envValues[envVar.name] ?? "" },
+            set: { envValues[envVar.name] = $0 }
+        )
+    }
+
+    private func saveEnvVar(_ envVar: EnvironmentVar) {
+        let value = envValues[envVar.name] ?? ""
+        if value.isEmpty {
+            KeychainHelper.delete(tool: tool.name, key: envVar.name)
+        } else {
+            KeychainHelper.save(tool: tool.name, key: envVar.name, value: value)
+        }
+    }
+
     private func runTool() {
+        // Save any pending env var values before running
+        for envVar in tool.environment ?? [] {
+            saveEnvVar(envVar)
+        }
         CommandRunner.run(
             tool: tool,
             argumentValues: argumentValues,

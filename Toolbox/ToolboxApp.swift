@@ -10,5 +10,10 @@ struct ToolboxApp: App {
                 .environment(toolManager)
                 .frame(minWidth: 700, minHeight: 500)
         }
+
+        Settings {
+            SettingsView()
+                .environment(toolManager)
+        }
     }
 }

@@ -1,5 +1,11 @@
 import Foundation
 
+struct EnvironmentVar: Codable, Identifiable {
+    var id: String { name }
+    let name: String   // e.g. "ANTHROPIC_API_KEY"
+    let label: String  // e.g. "Anthropic API Key"
+}
+
 struct Tool: Codable, Identifiable, Hashable {
     var id: String { name }
     let name: String
@@ -8,6 +14,7 @@ struct Tool: Codable, Identifiable, Hashable {
     let command: String
     let arguments: [Argument]
     let flags: [Flag]
+    let environment: [EnvironmentVar]?
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)

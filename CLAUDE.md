@@ -21,6 +21,7 @@ Toolbox/
   Services/
     ToolManager.swift           — Loads JSON from ~/.toolbox/tools/, watches for FS changes
     CommandRunner.swift         — Runs Process + Pipe, streams stdout/stderr; runScript() helper for shell scripts
+    KeychainHelper.swift        — Keychain read/write/delete/list for storing env var secrets
   Views/
     ContentView.swift           — NavigationSplitView (sidebar + detail), "+" menu with 3 add-tool options
     SidebarView.swift           — List of tools with icons
@@ -30,6 +31,7 @@ Toolbox/
     AddFromGitHubView.swift     — "Add from GitHub" sheet: paste repo URL, clone + analyze
     ArgumentFieldView.swift     — Renders control per argument type
     OutputView.swift            — Monospaced scrolling terminal output
+    SettingsView.swift          — Cmd+, Settings window for managing stored secrets
 ```
 
 ## Directory Layout
@@ -60,7 +62,8 @@ When the user has a CLI script they want to integrate, create a JSON config file
   "description": "Short description shown in sidebar",
   "command": "/absolute/path/to/executable",
   "arguments": [],
-  "flags": []
+  "flags": [],
+  "environment": []
 }
 ```
 
@@ -70,6 +73,7 @@ When the user has a CLI script they want to integrate, create a JSON config file
 - `command` (string, required) — Absolute path to the executable. No tilde, no relative paths.
 - `arguments` (array, required) — Positional arguments passed after flags, in order.
 - `flags` (array, required) — Boolean or string flags passed before arguments.
+- `environment` (array, optional) — Environment variables needed by the tool (e.g. API keys). Values are stored in macOS Keychain and injected at runtime.
 
 ### Argument Object
 
@@ -120,6 +124,22 @@ Type → UI control mapping:
 | `default` | bool/string | no | Default value |
 
 Bool flags: when toggled on, the `flag` string is included in the command. When off, it's omitted.
+
+### Environment Object
+
+```json
+{
+  "name": "ANTHROPIC_API_KEY",
+  "label": "Anthropic API Key"
+}
+```
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `name` | string | yes | Environment variable name (e.g. `ANTHROPIC_API_KEY`) |
+| `label` | string | yes | Human-readable label shown in the UI |
+
+Values are entered via SecureFields in the tool detail view and stored in macOS Keychain (service: "Toolbox", account: "toolName.varName"). They are injected into the process environment at runtime. Manage all stored secrets via Cmd+, (Settings).
 
 ### Example: Full Config
 

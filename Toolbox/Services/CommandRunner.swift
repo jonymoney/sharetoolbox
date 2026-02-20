@@ -41,6 +41,14 @@ final class CommandRunner {
         var env = ProcessInfo.processInfo.environment
         let currentPath = env["PATH"] ?? "/usr/bin:/bin"
         env["PATH"] = "/opt/homebrew/bin:/usr/local/bin:" + currentPath
+
+        // Inject environment variables from Keychain
+        for envVar in tool.environment ?? [] {
+            if let value = KeychainHelper.read(tool: tool.name, key: envVar.name) {
+                env[envVar.name] = value
+            }
+        }
+
         process.environment = env
 
         let stdoutPipe = Pipe()
