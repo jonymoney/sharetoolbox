@@ -5,7 +5,7 @@ struct AddFromFolderView: View {
     @State private var folderPath = ""
     @State private var runState = ToolRunState()
 
-    private let scriptPath = "/Users/jony.money/Documents/Dev/Explorations/Toolbox/create-tool.sh"
+    private let scriptPath = "/Users/jony.money/Documents/Dev/Explorations/ShareToolBox/create-tool.sh"
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {

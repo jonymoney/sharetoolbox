@@ -1,44 +1,48 @@
-# Toolbox
+# ShareToolBox
 
-macOS SwiftUI app that wraps CLI tools with a GUI. Tools are defined by JSON config files in `~/.toolbox/tools/` — the app auto-discovers them and renders forms with arguments, flags, and real-time streaming output.
+macOS SwiftUI app that wraps CLI tools with a GUI. Tools are defined by JSON config files in `~/.sharetoolbox/tools/` — the app auto-discovers them and renders forms with arguments, flags, and real-time streaming output. Each run creates a persistent session.
 
 ## Build & Run
 
 ```bash
-xcodebuild -project Toolbox.xcodeproj -scheme Toolbox -configuration Debug build
+xcodebuild -project ShareToolBox.xcodeproj -scheme ShareToolBox -configuration Debug build
 ```
 
-Or open `Toolbox.xcodeproj` in Xcode and hit Run. Requires macOS 14+. App Sandbox is disabled (needed to run `Process`).
+Or open `ShareToolBox.xcodeproj` in Xcode and hit Run. Requires macOS 14+. App Sandbox is disabled (needed to run `Process`).
 
 ## Project Structure
 
 ```
-Toolbox/
-  ToolboxApp.swift              — Entry point, injects ToolManager
+ShareToolBox/
+  ShareToolBoxApp.swift           — Entry point, injects ToolManager + SessionManager
   Models/
-    Tool.swift                  — Tool, Argument, Flag (Codable structs)
-    ToolRunState.swift          — @Observable: output lines, isRunning, exitCode
+    Tool.swift                    — Tool, Argument, Flag (Codable structs)
+    ToolRunState.swift            — @Observable: output lines, isRunning, exitCode
+    Session.swift                 — Session model with tool snapshots, inputs, output
   Services/
-    ToolManager.swift           — Loads JSON from ~/.toolbox/tools/, watches for FS changes
-    CommandRunner.swift         — Runs Process + Pipe, streams stdout/stderr; runScript() helper for shell scripts
-    KeychainHelper.swift        — Keychain read/write/delete/list for storing env var secrets
+    ToolManager.swift             — Loads JSON from ~/.sharetoolbox/tools/, watches for FS changes
+    SessionManager.swift          — Session CRUD, disk persistence, ToolRunState ownership
+    CommandRunner.swift           — Runs Process + Pipe, streams stdout/stderr; runScript() helper for shell scripts
+    KeychainHelper.swift          — Keychain read/write/delete/list for storing env var secrets
   Views/
-    ContentView.swift           — NavigationSplitView (sidebar + detail), "+" menu with 3 add-tool options
-    SidebarView.swift           — List of tools with icons
-    ToolDetailView.swift        — Form fields + Run button + output panel
-    CreateToolView.swift        — "Create with AI" sheet: describe a tool, Claude generates config
-    AddFromFolderView.swift     — "Add from Folder" sheet: browse to a folder, Claude analyzes it
-    AddFromGitHubView.swift     — "Add from GitHub" sheet: paste repo URL, clone + analyze
-    ArgumentFieldView.swift     — Renders control per argument type
-    OutputView.swift            — Monospaced scrolling terminal output
-    SettingsView.swift          — Cmd+, Settings window for managing stored secrets
+    ContentView.swift             — NavigationSplitView (sidebar + detail), session-based navigation
+    SidebarView.swift             — Date-grouped session list with run indicators
+    ToolPickerView.swift          — Home screen tool grid with Add Tool card
+    SessionDetailView.swift       — Session form fields + Run button + output panel
+    CreateToolView.swift          — "Create with AI" sheet: describe a tool, Claude generates config
+    AddFromFolderView.swift       — "Add from Folder" sheet: browse to a folder, Claude analyzes it
+    AddFromGitHubView.swift       — "Add from GitHub" sheet: paste repo URL, clone + analyze
+    ArgumentFieldView.swift       — Renders control per argument type
+    OutputView.swift              — Monospaced scrolling terminal output
+    SettingsView.swift            — Cmd+, Settings window for managing stored secrets
 ```
 
 ## Directory Layout
 
 ```
-~/.toolbox/
+~/.sharetoolbox/
     tools/       ← JSON configs (watched by ToolManager, auto-discovered)
+    sessions/    ← Persisted session data (inputs + output)
     scripts/     ← Cloned repos managed by the app (created on first GitHub add)
         repo-name/
             script.sh
@@ -51,7 +55,7 @@ CommandRunner builds the args array: **flags first** (e.g. `-m`), then **positio
 
 ## Adding a New Tool
 
-When the user has a CLI script they want to integrate, create a JSON config file at `~/.toolbox/tools/<tool-name>.json`. The app watches this directory and picks up changes live.
+When the user has a CLI script they want to integrate, create a JSON config file at `~/.sharetoolbox/tools/<tool-name>.json`. The app watches this directory and picks up changes live.
 
 ### Config Schema
 
@@ -139,7 +143,7 @@ Bool flags: when toggled on, the `flag` string is included in the command. When 
 | `name` | string | yes | Environment variable name (e.g. `ANTHROPIC_API_KEY`) |
 | `label` | string | yes | Human-readable label shown in the UI |
 
-Values are entered via SecureFields in the tool detail view and stored in macOS Keychain (service: "Toolbox", account: "toolName.varName"). They are injected into the process environment at runtime. Manage all stored secrets via Cmd+, (Settings).
+Values are entered via SecureFields in the session detail view and stored in macOS Keychain (service: "ShareToolBox", account: "toolName.varName"). They are injected into the process environment at runtime. Manage all stored secrets via Cmd+, (Settings).
 
 ### Example: Full Config
 
@@ -148,7 +152,7 @@ Values are entered via SecureFields in the tool detail view and stored in macOS 
   "name": "YouTube Downloader",
   "icon": "arrow.down.circle",
   "description": "Download videos or audio from YouTube",
-  "command": "/Users/jony.money/Documents/Dev/Explorations/ytdownloader/ytdl",
+  "command": "/usr/local/bin/ytdl",
   "arguments": [
     {
       "name": "url",
@@ -177,19 +181,19 @@ Values are entered via SecureFields in the tool detail view and stored in macOS 
 }
 ```
 
-This produces the command: `ytdl -m https://youtube.com/watch?v=... /Users/jony.money/Downloads`
+This produces the command: `ytdl -m https://youtube.com/watch?v=... ~/Downloads`
 
 ### Checklist for Adding a Tool
 
 1. Figure out the CLI tool's usage: what flags and positional args it expects.
-2. Create `~/.toolbox/tools/<name>.json` matching the schema above.
+2. Create `~/.sharetoolbox/tools/<name>.json` matching the schema above.
 3. Use `"type": "string"` for URLs, text input, etc. Use `"directory"` / `"file"` only for filesystem paths.
 4. Set `"command"` to the **absolute path** of the executable.
 5. The app picks it up automatically — no restart needed.
 
 ## Adding Tools — Three Ways
 
-The "+" button in the toolbar opens a dropdown menu with three options. All three use `create-tool.sh` with different modes.
+Click the **Add Tool** card on the home screen for three options. All three use `create-tool.sh` with different modes.
 
 ### Create with AI (`create` mode)
 ```bash
@@ -207,10 +211,10 @@ User browses to a folder containing a script or tool. Claude analyzes the folder
 ```bash
 ./create-tool.sh github https://github.com/user/repo
 ```
-User pastes a GitHub repo URL. The script clones it to `~/.toolbox/scripts/<repo-name>/` (or `git pull` if it already exists), then Claude analyzes the clone and generates a config. Re-adding the same repo updates it instead of failing.
+User pastes a GitHub repo URL. The script clones it to `~/.sharetoolbox/scripts/<repo-name>/` (or `git pull` if it already exists), then Claude analyzes the clone and generates a config. Re-adding the same repo updates it instead of failing.
 
 ### How it works (all modes)
 1. `create-tool.sh` dispatches based on the mode argument
 2. The script calls `claude -p` with `--system-prompt` containing the full config schema and `--allowedTools Write,Read,Bash`
-3. Claude reads/analyzes the relevant files, figures out the args/flags, and writes the JSON config to `~/.toolbox/tools/`
-4. The FS watcher picks it up — the new tool appears in the sidebar immediately
+3. Claude reads/analyzes the relevant files, figures out the args/flags, and writes the JSON config to `~/.sharetoolbox/tools/`
+4. The FS watcher picks it up — the new tool appears immediately

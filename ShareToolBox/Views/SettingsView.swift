@@ -137,7 +137,7 @@ struct AboutTab: View {
                 .font(.system(size: 48))
                 .foregroundColor(.accentColor)
 
-            Text("Toolbox")
+            Text("ShareToolBox")
                 .font(.title.bold())
 
             Text("Wrap CLI tools with a native macOS GUI.")

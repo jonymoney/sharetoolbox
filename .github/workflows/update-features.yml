@@ -1,0 +1,59 @@
+name: Update Features from Toolbox
+
+on:
+  repository_dispatch:
+    types: [features-updated]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-website:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout website repo
+        uses: actions/checkout@v4
+
+      - name: Fetch FEATURES.md from Toolbox repo
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TOOLBOX_REPO: ${{ secrets.TOOLBOX_REPO }}
+        run: |
+          gh api "repos/${TOOLBOX_REPO}/contents/FEATURES.md" \
+            --jq '.content' | base64 -d > FEATURES.md
+          echo "--- FEATURES.md fetched ---"
+          head -20 FEATURES.md
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Claude Code
+        run: npm i -g @anthropic-ai/claude-code
+
+      - name: Update website with Claude Code
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          claude -p "$(cat .github/prompts/update-features.md)" \
+            --allowedTools "Read,Write,Edit,Glob,Grep" \
+            --max-turns 25
+
+      - name: Check for changes and commit
+        run: |
+          git diff --quiet && echo "No changes detected" && exit 0
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html docs.html
+          git commit -m "$(cat <<'EOF'
+          Update features from Toolbox FEATURES.md
+
+          Auto-synced by Claude Code via GitHub Actions.
+
+          Co-Authored-By: Claude <noreply@anthropic.com>
+          EOF
+          )"
+          git push

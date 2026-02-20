@@ -9,6 +9,7 @@ final class CommandRunner {
     ) {
         state.reset()
         state.isRunning = true
+        state.runStartedAt = Date()
 
         let process = Process()
         process.executableURL = URL(fileURLWithPath: tool.command)

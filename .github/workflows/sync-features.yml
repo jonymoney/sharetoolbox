@@ -14,6 +14,6 @@ jobs:
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.WEBSITE_REPO_PAT }}
-          repository: ${{ github.repository_owner }}/sharetoolbox
+          repository: ${{ github.repository_owner }}/sharetoolbox-web
           event-type: features-updated
           client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'

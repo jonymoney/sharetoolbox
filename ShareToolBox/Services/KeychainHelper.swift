@@ -2,7 +2,7 @@ import Foundation
 import Security
 
 enum KeychainHelper {
-    private static let service = "Toolbox"
+    private static let service = "ShareToolBox"
 
     static func save(tool: String, key: String, value: String) {
         let account = "\(tool).\(key)"

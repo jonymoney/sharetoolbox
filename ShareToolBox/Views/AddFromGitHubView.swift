@@ -5,7 +5,7 @@ struct AddFromGitHubView: View {
     @State private var repoURL = ""
     @State private var runState = ToolRunState()
 
-    private let scriptPath = "/Users/jony.money/Documents/Dev/Explorations/Toolbox/create-tool.sh"
+    private let scriptPath = "/Users/jony.money/Documents/Dev/Explorations/ShareToolBox/create-tool.sh"
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {

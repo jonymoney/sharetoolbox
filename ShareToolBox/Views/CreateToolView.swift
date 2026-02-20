@@ -7,7 +7,7 @@ struct CreateToolView: View {
     @State private var runState = ToolRunState()
     @State private var hasRun = false
 
-    private let scriptPath = "/Users/jony.money/Documents/Dev/Explorations/Toolbox/create-tool.sh"
+    private let scriptPath = "/Users/jony.money/Documents/Dev/Explorations/ShareToolBox/create-tool.sh"
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -27,7 +27,7 @@ struct CreateToolView: View {
                 .buttonStyle(.plain)
             }
 
-            Text("Describe a CLI tool and Claude will generate the Toolbox config. Mention the script path so it can read it.")
+            Text("Describe a CLI tool and Claude will generate the ShareToolBox config. Mention the script path so it can read it.")
                 .foregroundStyle(.secondary)
 
             if !hasRun {

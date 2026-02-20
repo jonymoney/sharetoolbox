@@ -7,15 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A10000010000000000000001 /* ToolboxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000001 /* ToolboxApp.swift */; };
+		A10000010000000000000001 /* ShareToolBoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000001 /* ShareToolBoxApp.swift */; };
 		A10000010000000000000002 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000002 /* Tool.swift */; };
 		A10000010000000000000003 /* ToolRunState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000003 /* ToolRunState.swift */; };
 		A10000010000000000000004 /* ToolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000004 /* ToolManager.swift */; };
 		A10000010000000000000005 /* CommandRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000005 /* CommandRunner.swift */; };
 		A10000010000000000000006 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000006 /* ContentView.swift */; };
 		A10000010000000000000007 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000007 /* SidebarView.swift */; };
-		A10000010000000000000008 /* ToolDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000008 /* ToolDetailView.swift */; };
 		A10000010000000000000009 /* ArgumentFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000009 /* ArgumentFieldView.swift */; };
+		A10000010000000000000011 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000011 /* Session.swift */; };
+		A10000010000000000000012 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000012 /* SessionManager.swift */; };
+		A10000010000000000000013 /* ToolPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000013 /* ToolPickerView.swift */; };
+		A10000010000000000000014 /* SessionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000014 /* SessionDetailView.swift */; };
 		A1000001000000000000000A /* OutputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001000000000000000A /* OutputView.swift */; };
 		A1000001000000000000000B /* CreateToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001000000000000000B /* CreateToolView.swift */; };
 		A1000001000000000000000C /* AddFromFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001000000000000000C /* AddFromFolderView.swift */; };
@@ -25,18 +28,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A30000010000000000000001 /* Toolbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Toolbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A20000010000000000000001 /* ToolboxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolboxApp.swift; sourceTree = "<group>"; };
+		A30000010000000000000001 /* ShareToolBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShareToolBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A20000010000000000000001 /* ShareToolBoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareToolBoxApp.swift; sourceTree = "<group>"; };
 		A20000010000000000000002 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		A20000010000000000000003 /* ToolRunState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolRunState.swift; sourceTree = "<group>"; };
 		A20000010000000000000004 /* ToolManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolManager.swift; sourceTree = "<group>"; };
 		A20000010000000000000005 /* CommandRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandRunner.swift; sourceTree = "<group>"; };
 		A20000010000000000000006 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A20000010000000000000007 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
-		A20000010000000000000008 /* ToolDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolDetailView.swift; sourceTree = "<group>"; };
 		A20000010000000000000009 /* ArgumentFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentFieldView.swift; sourceTree = "<group>"; };
+		A20000010000000000000011 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		A20000010000000000000012 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		A20000010000000000000013 /* ToolPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolPickerView.swift; sourceTree = "<group>"; };
+		A20000010000000000000014 /* SessionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailView.swift; sourceTree = "<group>"; };
 		A2000001000000000000000A /* OutputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputView.swift; sourceTree = "<group>"; };
-		A20000010000000000000010 /* Toolbox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Toolbox.entitlements; sourceTree = "<group>"; };
+		A20000010000000000000010 /* ShareToolBox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareToolBox.entitlements; sourceTree = "<group>"; };
 		A2000001000000000000000B /* CreateToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateToolView.swift; sourceTree = "<group>"; };
 		A2000001000000000000000C /* AddFromFolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFromFolderView.swift; sourceTree = "<group>"; };
 		A2000001000000000000000D /* AddFromGitHubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFromGitHubView.swift; sourceTree = "<group>"; };
@@ -58,21 +64,21 @@
 		A50000010000000000000001 /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				A50000010000000000000002 /* Toolbox */,
+				A50000010000000000000002 /* ShareToolBox */,
 				A50000010000000000000006 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		A50000010000000000000002 /* Toolbox */ = {
+		A50000010000000000000002 /* ShareToolBox */ = {
 			isa = PBXGroup;
 			children = (
-				A20000010000000000000001 /* ToolboxApp.swift */,
-				A20000010000000000000010 /* Toolbox.entitlements */,
+				A20000010000000000000001 /* ShareToolBoxApp.swift */,
+				A20000010000000000000010 /* ShareToolBox.entitlements */,
 				A50000010000000000000003 /* Models */,
 				A50000010000000000000004 /* Services */,
 				A50000010000000000000005 /* Views */,
 			);
-			path = Toolbox;
+			path = ShareToolBox;
 			sourceTree = "<group>";
 		};
 		A50000010000000000000003 /* Models */ = {
@@ -80,6 +86,7 @@
 			children = (
 				A20000010000000000000002 /* Tool.swift */,
 				A20000010000000000000003 /* ToolRunState.swift */,
+				A20000010000000000000011 /* Session.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -90,6 +97,7 @@
 				A20000010000000000000004 /* ToolManager.swift */,
 				A20000010000000000000005 /* CommandRunner.swift */,
 				A2000001000000000000000E /* KeychainHelper.swift */,
+				A20000010000000000000012 /* SessionManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -99,7 +107,8 @@
 			children = (
 				A20000010000000000000006 /* ContentView.swift */,
 				A20000010000000000000007 /* SidebarView.swift */,
-				A20000010000000000000008 /* ToolDetailView.swift */,
+				A20000010000000000000013 /* ToolPickerView.swift */,
+				A20000010000000000000014 /* SessionDetailView.swift */,
 				A20000010000000000000009 /* ArgumentFieldView.swift */,
 				A2000001000000000000000A /* OutputView.swift */,
 				A2000001000000000000000B /* CreateToolView.swift */,
@@ -113,7 +122,7 @@
 		A50000010000000000000006 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A30000010000000000000001 /* Toolbox.app */,
+				A30000010000000000000001 /* ShareToolBox.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -121,9 +130,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A60000010000000000000001 /* Toolbox */ = {
+		A60000010000000000000001 /* ShareToolBox */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A80000010000000000000003 /* Build configuration list for PBXNativeTarget "Toolbox" */;
+			buildConfigurationList = A80000010000000000000003 /* Build configuration list for PBXNativeTarget "ShareToolBox" */;
 			buildPhases = (
 				A70000010000000000000001 /* Sources */,
 				A40000010000000000000001 /* Frameworks */,
@@ -132,9 +141,9 @@
 			);
 			dependencies = (
 			);
-			name = Toolbox;
-			productName = Toolbox;
-			productReference = A30000010000000000000001 /* Toolbox.app */;
+			name = ShareToolBox;
+			productName = ShareToolBox;
+			productReference = A30000010000000000000001 /* ShareToolBox.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -152,7 +161,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A80000010000000000000001 /* Build configuration list for PBXProject "Toolbox" */;
+			buildConfigurationList = A80000010000000000000001 /* Build configuration list for PBXProject "ShareToolBox" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -165,7 +174,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A60000010000000000000001 /* Toolbox */,
+				A60000010000000000000001 /* ShareToolBox */,
 			);
 		};
 /* End PBXProject section */
@@ -175,15 +184,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A10000010000000000000001 /* ToolboxApp.swift in Sources */,
+				A10000010000000000000001 /* ShareToolBoxApp.swift in Sources */,
 				A10000010000000000000002 /* Tool.swift in Sources */,
 				A10000010000000000000003 /* ToolRunState.swift in Sources */,
 				A10000010000000000000004 /* ToolManager.swift in Sources */,
 				A10000010000000000000005 /* CommandRunner.swift in Sources */,
 				A10000010000000000000006 /* ContentView.swift in Sources */,
 				A10000010000000000000007 /* SidebarView.swift in Sources */,
-				A10000010000000000000008 /* ToolDetailView.swift in Sources */,
 				A10000010000000000000009 /* ArgumentFieldView.swift in Sources */,
+				A10000010000000000000011 /* Session.swift in Sources */,
+				A10000010000000000000012 /* SessionManager.swift in Sources */,
+				A10000010000000000000013 /* ToolPickerView.swift in Sources */,
+				A10000010000000000000014 /* SessionDetailView.swift in Sources */,
 				A1000001000000000000000A /* OutputView.swift in Sources */,
 				A1000001000000000000000B /* CreateToolView.swift in Sources */,
 				A1000001000000000000000C /* AddFromFolderView.swift in Sources */,
@@ -317,7 +329,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Toolbox/Toolbox.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ShareToolBox/ShareToolBox.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -325,6 +337,7 @@
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ShareToolBox;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -333,8 +346,8 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.toolbox.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sharetoolbox.app;
+				PRODUCT_NAME = ShareToolBox;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -345,7 +358,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Toolbox/Toolbox.entitlements;
+				CODE_SIGN_ENTITLEMENTS = ShareToolBox/ShareToolBox.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -353,6 +366,7 @@
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ShareToolBox;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -361,8 +375,8 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.toolbox.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sharetoolbox.app;
+				PRODUCT_NAME = ShareToolBox;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -371,7 +385,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A80000010000000000000001 /* Build configuration list for PBXProject "Toolbox" */ = {
+		A80000010000000000000001 /* Build configuration list for PBXProject "ShareToolBox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA0000010000000000000001 /* Debug */,
@@ -380,7 +394,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A80000010000000000000003 /* Build configuration list for PBXNativeTarget "Toolbox" */ = {
+		A80000010000000000000003 /* Build configuration list for PBXNativeTarget "ShareToolBox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AB0000010000000000000001 /* Debug */,

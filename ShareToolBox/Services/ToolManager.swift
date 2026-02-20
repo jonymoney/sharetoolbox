@@ -11,7 +11,7 @@ final class ToolManager {
 
     init() {
         let home = FileManager.default.homeDirectoryForCurrentUser
-        toolsDirectoryURL = home.appendingPathComponent(".toolbox/tools")
+        toolsDirectoryURL = home.appendingPathComponent(".sharetoolbox/tools")
         ensureDirectoryExists()
         loadTools()
         startWatching()
@@ -82,7 +82,7 @@ final class ToolManager {
 
     private var scriptsDirectoryPath: String {
         FileManager.default.homeDirectoryForCurrentUser
-            .appendingPathComponent(".toolbox/scripts")
+            .appendingPathComponent(".sharetoolbox/scripts")
             .path
     }
 
