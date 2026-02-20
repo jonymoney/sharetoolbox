@@ -44,8 +44,19 @@ CONFIG SCHEMA:
       "type": "bool",
       "default": false
     }
+  ],
+  "environment": [
+    {
+      "name": "ENV_VAR_NAME",
+      "label": "Human Label"
+    }
   ]
 }
+
+EXISTING TOOLS:
+Before creating a new tool, read the JSON configs in ~/.toolbox/tools/ to see what tools already exist.
+If the user wants to combine or chain existing tools, you can create a composite shell script at ~/.toolbox/scripts/<name>.sh that calls the existing tool commands in sequence, piping output from one to the next. Then create a config that points to this new script.
+For example, if a "YouTube Downloader" tool already exists at /path/to/ytdl, a new "Download & Analyze" tool could be a script that calls ytdl first, then pipes the result to another command.
 
 RULES:
 - Use the Write tool to write the JSON file to ~/.toolbox/tools/<tool-name>.json
@@ -54,6 +65,7 @@ RULES:
 - Pick an appropriate SF Symbol for "icon" (e.g. arrow.down.circle, doc.text, terminal, network, photo, music.note, video, gear, hammer)
 - "arguments" are positional — order matters, they are passed to the command in array order
 - "flags" are passed before arguments. Bool flags are included when toggled on, omitted when off.
+- "environment" is optional — only include it if the tool needs API keys or secrets. Values are stored securely in the macOS Keychain and injected into the process environment at runtime. The user enters them once in the Toolbox UI.
 - If the user mentions a script, use the Bash tool to read it and understand its usage before generating the config.
 - Keep it minimal — only include arguments and flags the tool actually uses.
 - Print a short summary of what you created when done.'
