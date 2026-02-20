@@ -1,0 +1,19 @@
+name: Sync Features to Website
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'FEATURES.md'
+
+jobs:
+  notify-website:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch to website repo
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.WEBSITE_REPO_PAT }}
+          repository: ${{ github.repository_owner }}/sharetoolbox
+          event-type: features-updated
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
